@@ -71,7 +71,7 @@ Flex = struct('Frequency',[],'WaveNumber',[],'Attenuation',[],...
 count = 1;
 for i = 0:max(Flex_table.Order)
 
-    Flex(count).Order =  Long_table(Long_table.Order == i,:).Order(1);
+    Flex(count).Order =  Flex_table(Flex_table.Order == i,:).Order(1);
     Flex(count).Frequency = Flex_table(Flex_table.Order == i,:).Frequency;
     Flex(count).PhaseVel = Flex_table(Flex_table.Order == i,:).PhaseVel;
     Flex(count).WaveNumber = Flex_table(Flex_table.Order == i,:).WaveNumber;
@@ -90,9 +90,9 @@ Tors = struct('Frequency',[],'WaveNumber',[],'Attenuation',[],...
 
 
 count = 1;
-for i = 0:max(Flex_table.Order)
+for i = 0:max(Tors_table.Order)
 
-    Tors(count).Order =  Long_table(Long_table.Order == i,:).Order(1);
+    Tors(count).Order =  Tors_table(Tors_table.Order == i,:).Order(1);
     Tors(count).Frequency = Tors_table(Tors_table.Order == i,:).Frequency;
     Tors(count).PhaseVel = Tors_table(Tors_table.Order == i,:).PhaseVel;
     Tors(count).WaveNumber = Tors_table(Tors_table.Order == i,:).WaveNumber;
