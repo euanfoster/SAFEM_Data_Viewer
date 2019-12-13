@@ -2,7 +2,7 @@ close all
 clear all
 
 %Read in Data
-T = readtable('Results.xlsx');
+T = readtable('Results2.xlsx');
 
 %% Remove Duplicate Results
 comp = strcmp(T.WaveClassification,'None');
@@ -11,6 +11,8 @@ T = T(comp == 0,:);
 %Converting Columns to numeric values
 T.Order = str2double(T.Order);
 T.EigenValue = str2double(T.EigenValue);
+
+
 %% Removing Duplicate solutions
 eigen = round(T.EigenValue,3);
 x = unique(eigen);                  %finding uniques values in m array only
