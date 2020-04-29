@@ -2,14 +2,14 @@ close all
 clear all
 
 %Read in Data
-T = readtable('Results2.xlsx');
+T = readtable('Results.xlsx');
 
 %% Remove Duplicate Results
 comp = strcmp(T.WaveClassification,'None');
 T = T(comp == 0,:);
 
 %Converting Columns to numeric values
-T.Order = str2double(T.Order);
+%T.Order = str2double(T.Order);
 T.EigenValue = str2double(T.EigenValue);
 
 
@@ -61,29 +61,35 @@ Tors_table = T_wavemode(T_wavemode.ModeMap==3,:);
 %Plotting Frequency V Phase Vel
 figure(01)
 %%Shear Horizontal
-for i = 1:length(SH)  
-    [p,~,mu] = polyfit(SH(i).Frequency,SH(i).PhaseVel, 20);
+for i = 1:length(SH)
+    order = 20;
+    
+    
+    [p,~,mu] = polyfit(SH(i).Frequency,SH(i).PhaseVel, order);
     f = polyval(p,SH(i).Frequency,[],mu);
+    f = smooth(f,5);
+    
     hold on
     plot(SH(i).Frequency/1e3,f,'-d','LineWidth',2)
+    title('Phase Velocity V 
 end
 %Longitudinal
 for i = 1:length(Long)
-    [p,~,mu] = polyfit(Long(i).Frequency,Long(i).PhaseVel, 20);
+    [p,~,mu] = polyfit(Long(i).Frequency,Long(i).PhaseVel, 10);
     f = polyval(p,Long(i).Frequency,[],mu);
     hold on
     plot(Long(i).Frequency/1e3,f,'-d','LineWidth',2)
 end
 %Flexural
 for i = 1:length(Flex)
-    [p,~,mu] = polyfit(Flex(i).Frequency,Flex(i).PhaseVel, 20);
+    [p,~,mu] = polyfit(Flex(i).Frequency,Flex(i).PhaseVel, 10);
     f = polyval(p,Flex(i).Frequency,[],mu);
     hold on
     plot(Flex(i).Frequency/1e3,f,'-d','LineWidth',2)
 end
 %Torsional
 for i = 1:length(Tors)
-    [p,~,mu] = polyfit(Tors(i).Frequency,Tors(i).PhaseVel, 20);
+    [p,~,mu] = polyfit(Tors(i).Frequency,Tors(i).PhaseVel, 10);
     f = polyval(p,Tors(i).Frequency,[],mu);
     hold on
     plot(Tors(i).Frequency/1e3,f,'-d','LineWidth',2)
